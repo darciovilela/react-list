@@ -20,7 +20,7 @@ const items: Item[] = [
 function App() {
   return (
     <div className="App">
-      <header className="App-header"> Lista</header>
+      <Header />
       {items.map((item) => (
         <li>
           {item.title} - {item.sendDate.toString()}
@@ -29,4 +29,5 @@ function App() {
     </div>
   );
 }
+
 export default App;
