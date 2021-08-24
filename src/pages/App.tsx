@@ -1,10 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Header } from '../components/Header';
 
-interface Item {
-  title: string;
-  sendDate: Date;
-}
+import { Item } from '../entities/items';
 
 const items: Item[] = [
   {
@@ -12,20 +9,26 @@ const items: Item[] = [
     sendDate: new Date(),
   },
   {
-    title: 'item 1',
+    title: 'item 2',
     sendDate: new Date(),
   },
 ];
 
 function App() {
+  const [activeRecord, setActiveRecord] = useState<Item>();
   return (
     <div className="App">
-      <Header />
-      {items.map((item) => (
-        <li>
-          {item.title} - {item.sendDate.toString()}
-        </li>
-      ))}
+      <div>
+        <h3>ActiveRecord:</h3> {JSON.stringify(activeRecord)}
+      </div>
+      <div>
+        <h3>Items</h3>
+        {items.map((item) => (
+          <li onClick={() => setActiveRecord(item)}>
+            {item.title} - {item.sendDate.toString()}
+          </li>
+        ))}
+      </div>
     </div>
   );
 }
