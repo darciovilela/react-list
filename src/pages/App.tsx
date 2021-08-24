@@ -16,8 +16,10 @@ const items: Item[] = [
 
 function App() {
   const [activeRecord, setActiveRecord] = useState<Item>();
+
   return (
     <div className="App">
+      <Header />
       <div>
         <h3>ActiveRecord:</h3> {JSON.stringify(activeRecord)}
       </div>
