@@ -25,6 +25,14 @@ function App() {
     fetch();
   };
 
+  const edit = async (record: Item) => {
+    await axios.put<Item>(`http://localhost:4000/items/${record.id}`, {
+      title: 'item post',
+      sendDate: '2021-09-19T18:56:23.027Z',
+    });
+    fetch();
+  };
+
   useEffect(() => {
     fetch();
   }, []);
@@ -39,6 +47,9 @@ function App() {
       </div>
       <div>
         <h3>ActiveRecord:</h3> {JSON.stringify(activeRecord)}
+        {activeRecord && (
+          <button onClick={() => edit(activeRecord)}>Edit Item</button>
+        )}
       </div>
       <div>
         <h3>Items</h3>
