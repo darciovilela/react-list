@@ -8,24 +8,29 @@ function App() {
   const [records, setRecords] = useState<Item[]>();
   const [activeRecord, setActiveRecord] = useState<Item>(emptyItem);
 
+  const url = 'http://localhost:4000/items';
+
   const fetch = async () => {
-    const result = await axios.get<Item[]>('http://localhost:4000/items');
+    const result = await axios.get<Item[]>(url);
     setRecords(result.data);
   };
 
   const create = async (record: Item) => {
-    await axios.post<Item>('http://localhost:4000/items', record);
-    setActiveRecord({ ...emptyItem });
-    fetch();
+    await axios.post<Item>(url, record);
+    mutationCallback();
   };
 
   const remove = async (record: Item) => {
-    await axios.delete<Item>(`http://localhost:4000/items/${record.id}`);
-    fetch();
+    await axios.delete<Item>(`${url}/${record.id}`);
+    mutationCallback();
   };
 
   const update = async (record: Item) => {
-    await axios.put<Item>(`http://localhost:4000/items/${record.id}`, record);
+    await axios.put<Item>(`${url}/${record.id}`, record);
+    mutationCallback();
+  };
+
+  const mutationCallback = () => {
     setActiveRecord({ ...emptyItem });
     fetch();
   };
