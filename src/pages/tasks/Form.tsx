@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
-import { Item, emptyItem } from '../../entities/items';
+import React, { useEffect, useState } from 'react';
+import { Item } from '../../entities/items';
 
 interface IProps {
   action: Function;
+  activeRecord: Item;
 }
 
-export const Form: React.FC<IProps> = ({ action }) => {
-  const [formState, setFormState] = useState<Item>(emptyItem);
+export const Form: React.FC<IProps> = ({ action, activeRecord }) => {
+  const [formState, setFormState] = useState<Item>(activeRecord);
+
+  useEffect(() => {
+    setFormState(activeRecord);
+  }, [activeRecord]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormState({ ...formState, [event.target.name]: event.target.value });

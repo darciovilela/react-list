@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Header } from '../components/Header';
-import { Item } from '../entities/items';
-import { Form } from './emails/Form';
+import { Item, emptyItem } from '../entities/items';
+import { Form } from './tasks/Form';
 
 function App() {
   const [records, setRecords] = useState<Item[]>();
-  const [activeRecord, setActiveRecord] = useState<Item>();
+  const [activeRecord, setActiveRecord] = useState<Item>(emptyItem);
 
   const fetch = async () => {
     const result = await axios.get<Item[]>('http://localhost:4000/items');
@@ -23,11 +23,8 @@ function App() {
     fetch();
   };
 
-  const edit = async (record: Item) => {
-    await axios.put<Item>(`http://localhost:4000/items/${record.id}`, {
-      title: 'item post',
-      sendDate: '2021-09-19T18:56:23.027Z',
-    });
+  const update = async (record: Item) => {
+    await axios.put<Item>(`http://localhost:4000/items/${record.id}`, record);
     fetch();
   };
 
@@ -43,10 +40,10 @@ function App() {
 
       <div>
         <h3>ActiveRecord:</h3> {JSON.stringify(activeRecord)}
-        {activeRecord && (
-          <button onClick={() => edit(activeRecord)}>Edit Item</button>
-        )}
-        <Form action={create} />
+        <Form
+          action={activeRecord.id ? update : create}
+          activeRecord={activeRecord}
+        />
       </div>
       <div>
         <h3>Items:</h3>
