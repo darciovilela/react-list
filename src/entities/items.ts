@@ -3,3 +3,8 @@ export interface Item {
   title: string;
   sendDate: Date;
 }
+
+export const emptyItem: Item = {
+  title: '',
+  sendDate: new Date(),
+};

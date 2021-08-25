@@ -1,7 +1,8 @@
 export const Header: React.FC = () => {
   return (
     <header className="App-header">
-      <b>Lista</b>
+      <h1>Lista</h1>
+      <hr></hr>
     </header>
   );
 };
