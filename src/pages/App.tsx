@@ -15,6 +15,7 @@ function App() {
 
   const create = async (record: Item) => {
     await axios.post<Item>('http://localhost:4000/items', record);
+    setActiveRecord({ ...emptyItem });
     fetch();
   };
 
@@ -25,6 +26,7 @@ function App() {
 
   const update = async (record: Item) => {
     await axios.put<Item>(`http://localhost:4000/items/${record.id}`, record);
+    setActiveRecord({ ...emptyItem });
     fetch();
   };
 
