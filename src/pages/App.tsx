@@ -20,6 +20,11 @@ function App() {
     fetch();
   };
 
+  const remove = async (record: Item) => {
+    await axios.delete<Item>(`http://localhost:4000/items/${record.id}`);
+    fetch();
+  };
+
   useEffect(() => {
     fetch();
   }, []);
@@ -39,7 +44,9 @@ function App() {
         <h3>Items</h3>
         <ul>
           {records.map((record) => (
-            <li key={record.title} onClick={() => setActiveRecord(record)}>
+            <li key={record.id}>
+              <button onClick={() => setActiveRecord(record)}>E</button>
+              <button onClick={() => remove(record)}>X</button>
               {record.title} - {record.sendDate}
             </li>
           ))}
